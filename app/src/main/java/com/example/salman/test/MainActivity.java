@@ -29,10 +29,14 @@ public class MainActivity extends AppCompatActivity {
     private LinearLayout dotsLayout;
     private TextView[] dots;
     private int[] layouts;
+
     private int[] tabIcons = {
             R.drawable.select_video,
             R.drawable.image,
-            R.drawable.milestone
+            R.drawable.milestone,
+            R.drawable.video,
+            R.drawable.select_image,
+            R.drawable.select_navi_milestone
     };
 
     @Override
@@ -64,6 +68,42 @@ public class MainActivity extends AppCompatActivity {
         tabLayout = (TabLayout) findViewById(R.id.tabs);
         tabLayout.setupWithViewPager(viewPager1);
         setupTabIcons();
+
+        tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
+            @Override
+            public void onTabSelected(TabLayout.Tab tab) {
+
+               int  position= tab.getPosition();
+
+                if(position==0){
+                    tabLayout.getTabAt(0).setIcon(tabIcons[0]);
+                    tabLayout.getTabAt(1).setIcon(tabIcons[1]);
+                    tabLayout.getTabAt(2).setIcon(tabIcons[2]);
+                }
+                else if(position==1){
+                    tabLayout.getTabAt(0).setIcon(tabIcons[3]);
+                    tabLayout.getTabAt(1).setIcon(tabIcons[4]);
+                    tabLayout.getTabAt(2).setIcon(tabIcons[2]);
+                }
+                else  if(position==2)
+                {
+                    tabLayout.getTabAt(0).setIcon(tabIcons[3]);
+                    tabLayout.getTabAt(1).setIcon(tabIcons[1]);
+                    tabLayout.getTabAt(2).setIcon(tabIcons[5]);
+                }
+
+            }
+
+            @Override
+            public void onTabUnselected(TabLayout.Tab tab) {
+
+            }
+
+            @Override
+            public void onTabReselected(TabLayout.Tab tab) {
+
+            }
+        });
     }
 
     private void addBottomDots(int currentPage) {
@@ -105,12 +145,14 @@ public class MainActivity extends AppCompatActivity {
 
 
 
+
     //  viewpager change listener
     ViewPager.OnPageChangeListener viewPagerPageChangeListener = new ViewPager.OnPageChangeListener() {
 
         @Override
         public void onPageSelected(int position) {
             addBottomDots(position);
+
 
             // changing the next button text 'NEXT' / 'GOT IT'
         }
@@ -175,6 +217,7 @@ public class MainActivity extends AppCompatActivity {
 
         @Override
         public Fragment getItem(int position) {
+
             return mFragmentList.get(position);
         }
 
